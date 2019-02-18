@@ -172,4 +172,19 @@
         epg: Web
         contract: Webapp_ctrt
         contract_type: consumer
-    
+    - name: Get fabric topology
+      aci_fabric_node:  
+        <<: *aci_login
+        state: query
+      register: json_response
+    - name: Parse fabric nodes
+      set_fact:
+        nodes: "{{ 'Node ' + item.fabricNodeIdentP.attributes.name + ' has serial: ' + item.fabricNodeIdentP.attributes.serial}}"
+      with_items: "{{ json_response.current }}"
+      register: nodes_json
+    - name: Create list of nodes
+      set_fact:
+        nodes: "{{ nodes_json.results | map(attribute='ansible_facts.nodes') | list }}"
+    - name: Print nodes
+      debug: var=nodes
+      
