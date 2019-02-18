@@ -1,4 +1,4 @@
-vsphere_compute_cluster = "dmz"
+vsphere_compute_cluster = "cl-dmz"
 folder = "ACI"
 aci_vm1_name="aci-tf-test1"
 aci_vm2_name="aci-tf-test2"

@@ -118,8 +118,8 @@ resource "vsphere_virtual_machine" "aci_vm1" {
   resource_pool_id = "${data.vsphere_compute_cluster.cl.resource_pool_id}"
   datastore_id     = "${data.vsphere_datastore.ds.id}"
 
-  num_cpus = 8
-  memory   = 24576
+  num_cpus = 1
+  memory   = 1024
   guest_id = "${data.vsphere_virtual_machine.template.guest_id}"
 
   scsi_type = "${data.vsphere_virtual_machine.template.scsi_type}"
@@ -127,12 +127,8 @@ resource "vsphere_virtual_machine" "aci_vm1" {
   disk {
     label = "disk0"
     size  = "${data.vsphere_virtual_machine.template.disks.0.size}"
-  }
-
-  disk {
-    unit_number = 1
-    label       = "disk1"
-    size        = 40
+    eagerly_scrub = false
+    thin_provisioned = false
   }
 
   folder = "${var.folder}"
@@ -178,12 +174,8 @@ resource "vsphere_virtual_machine" "aci_vm2" {
   disk {
     label = "disk0"
     size  = "${data.vsphere_virtual_machine.template.disks.0.size}"
-  }
-
-  disk {
-    unit_number = 1
-    label       = "disk1"
-    size        = 40
+    eagerly_scrub = false
+    thin_provisioned = false
   }
 
   folder = "${var.folder}"
