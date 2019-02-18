@@ -1,4 +1,5 @@
 vsphere_compute_cluster = "cl-dmz"
+tenant_name="terraform_ten"
 folder = "ACI"
 aci_vm1_name="aci-tf-test1"
 aci_vm2_name="aci-tf-test2"

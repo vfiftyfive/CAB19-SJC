@@ -7,7 +7,7 @@ provider "aci" {
 }
 
 resource "aci_tenant" "terraform_ten" {
-  name = "terraform_ten"
+  name = "${var.tenant_name}"
 }
 
 resource "aci_vrf" "vrf1" {
