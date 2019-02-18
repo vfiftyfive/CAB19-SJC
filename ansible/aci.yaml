@@ -1,0 +1,39 @@
+---  
+  - hosts: apic
+    vars:
+      aci_login: &aci_login
+        host: 172.16.255.10
+        username: api_user
+        private_key: /home/nvermand/CAB19-SJC/fabric_dmz_api_user.key
+        certificate_name: api_user_cert
+        use_proxy: no
+        validate_certs: no
+      contracts:
+        webapp:
+          ctrt: Webapp_ctrt
+          filter: webapp_filter
+          port: http
+        db:
+          ctrt: DB_ctrt
+          filter: db_filter
+          port: 3306
+
+    tasks:
+    - name: Register new leaf node
+      aci_rest:
+        <<: *aci_login
+        path: /api/node/mo/uni/controller/nodeidentpol.json
+        method: post
+        content:
+          fabricNodeIdentP:
+            attributes:
+              name: "{{ node_name }}"
+              role: "leaf"
+              serial: "{{ node_serial }}"
+              nodeId: "{{ node_id | string }}"
+    
+
+      
+        
+
+      
